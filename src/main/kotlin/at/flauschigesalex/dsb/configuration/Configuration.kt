@@ -23,6 +23,7 @@ object Configuration {
     val guildConfigs: Set<GuildConfiguration>
         get() = _guildConfigs.toSet()
     
+    val ktor: KtorConfiguration = KtorConfiguration(FileManager(File(DIR_SOURCE, "ktor"), "config.json"))
     val discord: DiscordConfiguration = DiscordConfiguration(FileManager(File(DIR_SOURCE, "discord"), "config.json"))
     
     init {
@@ -49,6 +50,41 @@ object Configuration {
             return@mapNotNull gc
         }
     }
+}
+
+@ConsistentCopyVisibility
+data class KtorConfiguration internal constructor(private val file: FileManager): Serializable() {
+    private val json = file.readJson() ?: JsonManager()
+    
+    var host: String = json.getString("ktor.host") ?: "0.0.0.0"
+        set(value) {
+            field = value
+            json["ktor.host"] = value
+        }
+    
+    var secure: Boolean = json.getBoolean("ktor.secure") ?: true
+        set(value) {
+            field = value
+            json["ktor.secure"] = value
+        }
+    
+    var port: Int = json.getInt("ktor.port") ?: 8080
+        set(value) {
+            field = value
+            json["ktor.port"] = value
+        }
+    
+    val url = "http${if (secure) "s" else ""}://$host:$port"
+
+    fun save(async: Boolean) {
+        if (json.isOriginalContent()) return
+        if (async) return scheduleAsync { this.save(false) }
+        
+        if (!file.exists) file.createFile()
+        file.write(json)
+    }
+    
+    override fun toJson(): JsonManager = json.clone()
 }
 
 @ConsistentCopyVisibility

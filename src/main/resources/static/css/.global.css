@@ -1,0 +1,28 @@
+:root {
+    --primary-background-color: #1C1B22;
+    --primary-text-color: #ffffff;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+    font-family: Arial, sans-serif;
+}
+
+a, a:visited, a:link, a:active, a:hover {
+    color: var(--primary-text-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none;
+}

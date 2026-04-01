@@ -1,0 +1,18 @@
+:root {
+    --primary-background-color: #1C1B22;
+    --primary-text-color: #ffffff;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#fallback {
+    margin-top: 1pc;
+    width: 100%;
+    text-align: center;
+}

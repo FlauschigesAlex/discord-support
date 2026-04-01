@@ -2,8 +2,10 @@
 
 package at.flauschigesalex.dsb
 
+import at.flauschigesalex.dsb.configuration.Configuration
 import at.flauschigesalex.dsb.data.SupportCategory
 import at.flauschigesalex.dsb.discord.DiscordBot
+import at.flauschigesalex.dsb.ktor.KtorApplication
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -13,11 +15,10 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 fun main() {
-    DiscordBot
-    SupportCategory
     Configuration // LOAD CONFIG
     DiscordBot // ENABLE BOT
     SupportCategory // ENABLE CATEGORIES
+    KtorApplication // ENABLE KTOR
 }
 
 val logger: Logger = LoggerFactory.getLogger("DSB")

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="*" xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" href="/static/css/.global.css">
+<link rel="stylesheet" href="/static/css/authenticate.css">
+
+<body>
+<main>
+    <h2 th:text="#{ktor.auth.required.title}"></h2>
+    <p th:text="#{ktor.auth.required.description}"></p>
+    
+    <section id="fallback" class="hidden">
+        <span th:text="#{ktor.auth.required.fallback}"></span> <a href="/discord/login/" th:text="#{ktor.auth.required.fallback.forward}"></a>
+    </section>
+</main>
+</body>
+
+<script src="/static/js/authenticate.js"></script>
+
+</html>
