@@ -22,24 +22,30 @@ object Configuration {
         get() = _guildConfigs.toSet()
     
     init {
+        this.reload()
+    }
+    
+    internal fun reload() {
+        _guildConfigs.clear()
+        
         // CHECK FOR DIRECTORY
         val dir = FileManager(DIR_SOURCE)
         if (!dir.exists) dir.createDirectory()
         require(dir.file.isDirectory) { "$DIR_SOURCE must be a directory" }
-        
+
         // CREATE GUILD CONFIGS FROM FILES
         dir.listFiles.mapNotNull { parent ->
             if (!parent.file.isDirectory) {
                 logger.warn("Config parent directory must only contain directories, found: $parent")
                 return@mapNotNull null
             }
-            
+
             val config = FileManager(parent, "config.json")
             if (!config.exists) {
                 logger.warn("Config directory must contain a 'config.json': $config")
                 return@mapNotNull null
             }
-            
+
             val gc = GuildConfiguration(config, FileManager(parent, "tickets.json")) ?: return@mapNotNull null
             _guildConfigs += gc
             return@mapNotNull gc
@@ -48,10 +54,11 @@ object Configuration {
 }
 
 @ConsistentCopyVisibility
-data class GuildConfiguration private constructor(val idLong: Long,
-                                                  private val config: FileManager,
-                                                  private val ticketFile: FileManager,
-                                                  private val json: JsonManager
+data class GuildConfiguration private constructor(
+    val idLong: Long,
+    private val config: FileManager,
+    private val ticketFile: FileManager,
+    private val json: JsonManager
 ) : Serializable() {
     companion object {
         private const val VERSION = 1

@@ -4,6 +4,7 @@ import at.flauschigesalex.dsb.configuration.config
 import at.flauschigesalex.dsb.discord.utils.isAdmin
 import at.flauschigesalex.dsb.discord.utils.members
 import at.flauschigesalex.dsb.utils.sendLocalizedMessage
+import at.flauschigesalex.lib.discord.listener.DiscordListener
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -13,10 +14,10 @@ import net.dv8tion.jda.api.components.buttons.Button
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent
-import net.dv8tion.jda.api.hooks.ListenerAdapter
 
+@Suppress("unused")
 @OptIn(ExperimentalCoroutinesApi::class)
-object SetupListener : ListenerAdapter() {
+private class SetupListener : DiscordListener() {
 
     override fun onGuildJoin(event: GuildJoinEvent) {
         val guild = event.guild

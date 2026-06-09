@@ -1,13 +1,14 @@
 package at.flauschigesalex.dsb.discord.ticket
 
 import at.flauschigesalex.dsb.data.supportCategories
+import at.flauschigesalex.lib.discord.listener.DiscordListener
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.events.message.MessageUpdateEvent
-import net.dv8tion.jda.api.hooks.ListenerAdapter
 
-object TicketListener : ListenerAdapter() {
+@Suppress("unused")
+private class TicketListener : DiscordListener() {
 
     override fun onButtonInteraction(event: ButtonInteractionEvent) {
         val member = event.member ?: return

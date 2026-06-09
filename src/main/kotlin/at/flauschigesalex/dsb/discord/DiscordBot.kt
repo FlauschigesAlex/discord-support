@@ -1,13 +1,9 @@
 package at.flauschigesalex.dsb.discord
 
 import at.flauschigesalex.dsb.configuration.Configuration
-import at.flauschigesalex.dsb.discord.command.CommandInternal
-import at.flauschigesalex.dsb.discord.command.CommandListener
-import at.flauschigesalex.dsb.discord.general.Commands
-import at.flauschigesalex.dsb.discord.general.LegacySetupListener
-import at.flauschigesalex.dsb.discord.general.SetupListener
-import at.flauschigesalex.dsb.discord.ticket.TicketListener
+import at.flauschigesalex.dsb.discord.utils.Commands
 import at.flauschigesalex.lib.base.file.Environment
+import at.flauschigesalex.lib.discord.FlauschigeLibraryDiscord
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.requests.GatewayIntent
@@ -24,9 +20,7 @@ object DiscordBot {
             .setMemberCachePolicy(MemberCachePolicy.ALL)
             .build().awaitReady()
 
-        JDA.addEventListener(LegacySetupListener)
-        JDA.addEventListener(SetupListener)
-        JDA.addEventListener(TicketListener)
+        FlauschigeLibraryDiscord.init(JDA, DiscordBot::class.java)
 
         Configuration // LOAD CONFIG
         Commands // LOAD COMMANDS
